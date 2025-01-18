@@ -1,1 +1,3 @@
+iconv
+xz-utils
 zlib

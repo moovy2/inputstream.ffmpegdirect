@@ -1,11 +1,12 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -79,6 +79,8 @@
-   if(index EQUAL -1)
-     message(FATAL_ERROR
-             "PNG_ARM_NEON must be one of [${PNG_ARM_NEON_POSSIBLE_VALUES}]")
-+  elseif(APPLE)
-+    add_definitions(-DPNG_ARM_NEON_OPT=0)
-   elseif(NOT ${PNG_ARM_NEON} STREQUAL "off")
-     set(libpng_arm_sources
-       arm/arm_init.c
+@@ -134,7 +134,7 @@
+ 
+ # Set definitions and sources for ARM.
+ if(TARGET_ARCH MATCHES "^(ARM|arm|aarch)")
+-  if(TARGET_ARCH MATCHES "^(ARM64|arm64|aarch64)")
++  if(NOT APPLE AND TARGET_ARCH MATCHES "^(ARM64|arm64|aarch64)")
+     set(PNG_ARM_NEON_POSSIBLE_VALUES on off)
+     set(PNG_ARM_NEON "on"
+         CACHE STRING "Enable ARM NEON optimizations: on|off; on is default")
+
